@@ -2,7 +2,7 @@ from urllib import request
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from .forms import SignUpForm
+from .forms import SignUpForm, RegistroForm
 from .models import Registro
 
 
@@ -57,3 +57,54 @@ def register_user(request):
     else:
         form = SignUpForm()
     return render(request, 'register.html', {'form': form})
+
+def registro_cliente(request, pk):
+    if request.user.is_authenticated:
+        registro_cliente = Registro.objects.get(id=pk)
+        return render(request, 'registro.html', {'registro': registro_cliente})
+    else:
+        messages.error(request, "Você precisa estar logado para acessar este registro.")
+        return redirect('home')
+
+def deletar_registro(request, pk):
+    if request.user.is_authenticated:
+        registro = Registro.objects.get(id=pk)
+        registro.delete()
+        messages.success(request, "Registro excluído com sucesso!")
+        return redirect('home')
+    else:
+        messages.error(request, "Você precisa estar logado para excluir este registro.")
+        return redirect('home')
+
+def registrar_cliente(request):
+    form = RegistroForm(request.POST or None)
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Cliente registrado com sucesso!")
+            return redirect('home')
+        else:
+            messages.error(request, "Erro ao registrar cliente. Verifique os dados e tente novamente.")
+            return render(request, 'registrar_cliente.html', {'form': form})
+    return render(request, 'registrar_cliente.html', {'form': form})
+
+def atualizar_registro(request, pk):
+    
+    if request.user.is_authenticated:
+        registro_atual = Registro.objects.get(id=pk)
+        form = RegistroForm(request.POST or None, instance=registro_atual)
+        if request.method == 'POST':
+            if form.is_valid():
+                form.save()
+                messages.success(request, "Registro atualizado com sucesso!")
+                return redirect('home')
+            else:
+                messages.error(request, "Erro ao atualizar registro. Verifique os dados e tente novamente.")
+                return render(request, 'atualizar_registro.html', {'form': form})
+        return render(request, 'atualizar_registro.html', {
+    'form': form,
+    'registro': registro_atual  # isso resolve o problema!
+})
+    else:
+        messages.error(request, "Você precisa estar logado para atualizar este registro.")
+        return redirect('home')
