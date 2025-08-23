@@ -32,10 +32,10 @@
       <td>{{ registro.data_criacao }}</td>
       <td><a href="{% url 'registro' registro.id %}">{{ registro.id }}</a></td>
     </tr>
+    {% endfor %}
+    {% endif %}
   </tbody>
       </table>
-  {% endfor %}
-  {% endif %}
   
   
       {% else %}

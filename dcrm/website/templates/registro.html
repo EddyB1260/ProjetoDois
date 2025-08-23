@@ -13,7 +13,7 @@
   <p><strong>Estado:</strong> {{ registro.estado }}</p>
   <p><strong>Data de Criação:</strong> {{ registro.data_criacao }}</p>
   <p><strong>ID:</strong> {{ registro.id }}</p></section>
-    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+    <p class="card-text">{{ registro.estagio }}</p>
     
    <a href="{% url 'home' %}" class="btn btn-secondary">Voltar</a>
    <a href="{% url 'deletar_registro' registro.id %}" class="btn btn-danger">Excluir</a>

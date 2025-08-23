@@ -39,7 +39,7 @@ class RegistroForm(forms.ModelForm):
     telefone = forms.CharField(required= True, widget= forms.widgets.TextInput(attrs={'placeholder':"Telefone", 'class': "form-control"}))
     cidade = forms.CharField(required= True, widget= forms.widgets.TextInput(attrs={'placeholder':"Cidade", 'class': "form-control"}))
     estado = forms.CharField(required= True, widget= forms.widgets.TextInput(attrs={'placeholder':"Estado", 'class': "form-control"}))
+    estagio = forms.CharField(required= True, widget= forms.widgets.TextInput(attrs={'placeholder':"Estágio", 'class': "form-control"}))
     class Meta:
         model = Registro
-        fields = ['primeiro_nome', 'sobrenome', 'email', 'telefone', 'cidade', 'estado']
-        
+        fields = ['primeiro_nome', 'sobrenome', 'email', 'telefone', 'cidade', 'estado', 'estagio']

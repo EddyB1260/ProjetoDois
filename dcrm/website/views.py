@@ -103,8 +103,9 @@ def atualizar_registro(request, pk):
                 return render(request, 'atualizar_registro.html', {'form': form})
         return render(request, 'atualizar_registro.html', {
     'form': form,
-    'registro': registro_atual  # isso resolve o problema!
+    'registro': registro_atual
 })
     else:
         messages.error(request, "Você precisa estar logado para atualizar este registro.")
         return redirect('home')
+    
